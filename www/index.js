@@ -12,7 +12,7 @@ window.Plotly = Plotly;
 
 var plot = {
   iterating: false,
-  N: 100,
+  N: 1000,
   K: 5,
   M: 2,
   x: [],
@@ -186,7 +186,7 @@ var plot = {
           y: this.yval,
           z: this.pdf,
         }],
-        {duration: 20},
+        {duration: 50},
         [1, 2]
       ).then(resolve);
     }.bind(this));
@@ -304,7 +304,7 @@ var plot = {
         name: 'Data',
         marker: {
           color: 'black',
-          size: 4,
+          size: 2,
         },
       },
       {
