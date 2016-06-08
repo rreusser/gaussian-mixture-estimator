@@ -10,6 +10,9 @@ var initializeModel = require('../src/initialize-model');
 
 window.Plotly = Plotly;
 
+var top = 80;
+var margin = {b: 30, l: 30, r: 30, t: 35};
+
 var plot = {
   iterating: false,
   N: 1000,
@@ -17,8 +20,10 @@ var plot = {
   M: 2,
   x: [],
   y: [],
+  top: top,
+  margin: margin,
   xrange: [0, 10],
-  yrange: [0, ((window.innerHeight - 75 - 30) / (window.innerWidth - 30 - 30)) * 10],
+  yrange: [0, ((window.innerHeight - top - margin.t - margin.b) / (window.innerWidth - margin.l - margin.r)) * 10],
   status: {},
   tolerance: 1e-6,
   iterationCounter: 0,
@@ -240,7 +245,7 @@ var plot = {
         y: this.yval,
         z: this.pdf,
       }],
-      {duration: 500},
+      {duration: 300},
       [0, 1, 2]
     );
   },
@@ -254,10 +259,13 @@ var plot = {
     this.iterate = this._iterate.bind(this);
     this.reinitialize = this._reinitialize.bind(this);
 
+    var controls = document.getElementById('controls');
+    controls.style.display = 'block';
+
     window.addEventListener('resize', function () {
       Plotly.relayout('plot', {
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight - top
       });
     });
 
@@ -350,13 +358,14 @@ var plot = {
         family: '"Computer Modern Serif", sans-serif',
         size: 16,
       },
-      margin: {b: 30, l: 30, r: 30, t: 75},
+      margin: this.margin,
       dragmode: 'pan',
       hovermode: 'closest',
       showlegend: false,
     }, {
       scrollZoom: true
     });
+    console.log(this.yrange);
   }
 };
 

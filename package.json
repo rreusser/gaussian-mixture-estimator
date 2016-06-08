@@ -20,7 +20,8 @@
     "build:html": "cp www/index.html dist/index.html",
     "build:css": "lessc www/style.less dist/style.css",
     "build:fonts": "cp -r www/fonts dist/fonts",
-    "build": "mkdir -p dist && npm run build:html && npm run build:js && npm run build:css && npm run build:fonts",
+    "build:images": "cp -r www/images dist/images",
+    "build": "mkdir -p dist && npm run build:html && npm run build:js && npm run build:css && npm run build:fonts && npm run build:images",
     "deploy": "gh-pages -d dist"
   },
   "keywords": [],

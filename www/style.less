@@ -1,14 +1,28 @@
 @import 'fonts';
+@import 'corner';
 
 html, body {
   margin: 0;
-  padding: 0;
   font-family: 'Computer Modern Serif';
+}
+
+html {
+  padding: 0;
+}
+
+body {
+  padding: 10px;
+}
+
+@top: 80px;
+
+h1 {
+  margin: 0;
 }
 
 #plot {
   position: absolute;
-  top: 0;
+  top: @top;
   left: 0;
   right: 0;
   bottom: 0;
@@ -25,11 +39,13 @@ input[type=number] {
 }
 
 #controls {
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
   padding: 15px;
   z-index: 100;
+  margin-top: -40px;
 }
 
 .panel {
