@@ -2,9 +2,27 @@
 
 > Estimate a Gaussian Mixture model using the Expectation Maximation (EM) algorithm
 
-Mostly functional. Fits an n-dimensional Gaussian Mixture to data using the Expectation Maximization (EM) algorithm.
+Fits an n-dimensional Gaussian Mixture to data using the Expectation Maximization (EM) algorithm.
 
 Demo at: http://rickyreusser.com/gaussian-mixture-estimator/
+
+## Example
+
+Not currently on npm. Pass it a list of n-dimensional coordinates (1D must currently be wrapped in an array) and specify the number of mixture components. More documentation to come.
+
+```javascript
+var estimate = require('gaussian-mixture-estimator')
+
+estimate(
+  [[x1, y1, ...],
+   [x2, y2, ...],
+   [x3, y3, ...],
+    ...
+  ],
+  5
+);
+```
+
 
 ## License
 
