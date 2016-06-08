@@ -8,7 +8,7 @@ Demo at: http://rickyreusser.com/gaussian-mixture-estimator/
 
 ## Example
 
-Not currently on npm. Pass it a list of n-dimensional coordinates (1D must currently be wrapped in an array) and specify the number of mixture components. More documentation to come.
+Not currently on npm. Pass it a list of n-dimensional coordinates (1D components must currently be wrapped in an array) and specify the number of mixture components. More documentation to come.
 
 ```javascript
 var estimate = require('gaussian-mixture-estimator')
