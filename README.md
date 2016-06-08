@@ -2,7 +2,9 @@
 
 > Estimate a Gaussian Mixture model using the Expectation Maximation (EM) algorithm
 
-## Introduction
+Mostly functional. Fits an n-dimensional Gaussian Mixture to data using the Expectation Maximization (EM) algorithm.
+
+Demo at: http://rickyreusser.com/gaussian-mixture-estimator/
 
 ## License
 
