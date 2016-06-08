@@ -1,0 +1,52 @@
+{
+  "name": "gaussian-mixture-estimator",
+  "version": "1.0.0",
+  "description": "Estimate a Gaussian Mixture model using the Expectation Maximation (EM) algorithm",
+  "main": "index.js",
+  "author": {
+    "name": "Ricky Reusser",
+    "email": "rsreusser@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rreusser/gaussian-mixture-estimator.git"
+  },
+  "scripts": {
+    "start": "budo-less www/index.js:bundle.js --less=www/style.less --open --dir www | garnish",
+    "test": "semistandard && mocha",
+    "build:clean": "rm -rf dist",
+    "build:js": "browserify www/index.js | uglifyjs -cm > dist/bundle.js",
+    "build:html": "cp www/index.html dist/index.html",
+    "build:css": "lessc www/style.less dist/style.css",
+    "build": "mkdir -p dist && npm run build:html && npm run build:js && npm run build:css",
+    "deploy": "gh-pages -d dist"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "budo-less": "^1.0.1",
+    "chai": "^3.5.0",
+    "garnish": "^5.2.0",
+    "mocha": "^2.5.3",
+    "ndarray-blas-level1": "^1.1.2",
+    "ndarray-show": "^2.0.0",
+    "plotly.js": "file:../../../../plotly/plotly.js"
+  },
+  "dependencies": {
+    "isndarray": "^1.0.0",
+    "ndarray-gemm": "^1.0.0",
+    "ndarray-lup-factorization": "^3.0.3",
+    "ndarray-lup-solve": "^1.1.0",
+    "ndarray-pack": "^1.2.0",
+    "ndarray-scratch": "^1.2.0",
+    "ndarray-unpack": "^1.0.0",
+    "ndarray-unsqueeze": "^1.0.3"
+  },
+  "semistandard": {
+    "globals": [
+      "describe",
+      "it",
+      "beforeEach"
+    ]
+  }
+}
