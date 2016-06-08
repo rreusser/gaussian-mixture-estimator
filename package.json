@@ -19,7 +19,8 @@
     "build:js": "browserify www/index.js | uglifyjs -cm > dist/bundle.js",
     "build:html": "cp www/index.html dist/index.html",
     "build:css": "lessc www/style.less dist/style.css",
-    "build": "mkdir -p dist && npm run build:html && npm run build:js && npm run build:css",
+    "build:fonts": "cp -r www/fonts dist/fonts",
+    "build": "mkdir -p dist && npm run build:html && npm run build:js && npm run build:css && npm run build:fonts",
     "deploy": "gh-pages -d dist"
   },
   "keywords": [],
