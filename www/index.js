@@ -7,6 +7,7 @@ var unpack = require('ndarray-unpack');
 var pool = require('ndarray-scratch');
 var show = require('ndarray-show');
 var initializeModel = require('../src/initialize-model');
+var kmeans = require('kmeans');
 
 window.Plotly = Plotly;
 
@@ -91,8 +92,39 @@ var plot = {
   },
 
   initializeModel: function () {
-    this.iterationCounter = 0;
+    var i;
+    var km = kmeans.create(unpack(this.points), this.K).process();
+
+    console.log('km.variances:', km.variances);
+
     initializeModel(this.points, this.alpha, this.mu, this.cov);
+
+    for (i = 0; i < this.K; i++) {
+      if (!isNaN(km.means[i][0])) {
+        this.mu.set(i, 0, Math.max(this.xrange[0], Math.min(this.xrange[1], km.means[i][0])));
+      }
+      if (!isNaN(km.means[i][1])) {
+        this.mu.set(i, 1, Math.max(this.yrange[0], Math.min(this.yrange[1], km.means[i][1])));
+      }
+
+      if (isNaN(km.variances[i])) {
+        var j = Math.floor(Math.random() * this.N);
+
+        this.mu.set(i, 0, this.x[j]);
+        this.mu.set(i, 1, this.y[j]);
+      } else {
+        this.cov.set(i, 0, 0, km.variances[i]);
+        this.cov.set(i, 1, 1, km.variances[i]);
+        this.cov.set(i, 1, 0, 0);
+        this.cov.set(i, 0, 1, 0);
+      }
+
+      this.alpha.set(i, 1 / this.K);
+    }
+    console.log('this.mu:\n' + show(this.mu));
+
+    this.iterationCounter = 0;
+    console.log('this.alpha:\n' + show(this.alpha));
   },
 
   computeModel: function () {
@@ -328,7 +360,7 @@ var plot = {
       {
         zauto: false,
         colorscale: [[0, '#fff'], [1, '#555']],
-        zmax: this.pdfMax,
+        zmax: Math.log10(1),
         zmin: -4,
         contours: {
           size: 1,
@@ -343,7 +375,7 @@ var plot = {
         x: this.xval,
         y: this.yval,
         z: this.pdf,
-        ncontours: 17,
+        ncontours: 21,
         type: 'contour',
         hoverinfo: 'none',
       }

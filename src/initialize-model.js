@@ -3,7 +3,6 @@
 module.exports = initializeModel;
 
 var ops = require('ndarray-ops');
-var mean = require('./mean');
 var variance = require('./variance');
 var show = require('ndarray-show');
 
@@ -29,7 +28,7 @@ function initializeModel (x, alpha, mu, cov) {
   ops.assigns(cov, 0);
   for (j = 0; j < M; j++) {
     // Compute stats in this dim:
-    var sig = variance(x.pick(null, j));
+    var sig = variance(x.pick(null, j)) / 4;
 
     // For each mixture component:
     for (k = 0; k < K; k++) {
