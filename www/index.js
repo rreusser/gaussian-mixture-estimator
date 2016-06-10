@@ -223,7 +223,7 @@ var plot = {
           y: this.yval,
           z: this.pdf,
         }],
-        {duration: 50},
+        {duration: 0},
         [1, 2]
       ).then(resolve);
     }.bind(this));
