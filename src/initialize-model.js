@@ -21,7 +21,7 @@ function initializeModel (x, alpha, mu, cov) {
   console.groupCollapsed('Initial Conditions');
 
   var unpacked = unpack(x);
-  var km = kmpp(unpacked, {k: K});
+  var km = kmpp(unpacked, {k: K, maxIterations: 100});
 
   for (k = 0; k < K; k++) {
     ops.assign(mu.pick(k), ndarray(km.centroids[k]));
