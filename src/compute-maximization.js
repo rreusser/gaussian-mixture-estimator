@@ -31,7 +31,6 @@ function computeMaximization (x, w, alpha, mu, cov) {
     ops.mulseq(mui, 1 / N);
   }
 
-
   // Update the covariance:
   ops.assigns(cov, 0);
   for (k = 0; k < K; k++) {

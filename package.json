@@ -29,7 +29,6 @@
     "budo-less": "^1.0.1",
     "chai": "^3.5.0",
     "garnish": "^5.2.0",
-    "kmeans": "git+https://git@github.com/rreusser/kmeans.git#cleanup",
     "mocha": "^2.5.3",
     "ndarray-blas-level1": "^1.1.2",
     "ndarray-show": "^2.0.0",
@@ -37,6 +36,8 @@
   },
   "dependencies": {
     "isndarray": "^1.0.0",
+    "kmpp": "git+https://git@github.com/rreusser/kmpp.git",
+    "ndarray": "^1.0.18",
     "ndarray-gemm": "^1.0.0",
     "ndarray-lup-factorization": "^3.0.3",
     "ndarray-lup-solve": "^1.1.0",

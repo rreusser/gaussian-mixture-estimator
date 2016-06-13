@@ -5,36 +5,51 @@ module.exports = initializeModel;
 var ops = require('ndarray-ops');
 var variance = require('./variance');
 var show = require('ndarray-show');
+var unpack = require('ndarray-unpack');
+var kmpp = require('kmpp');
+var ndarray = require('ndarray');
+var pack = require('ndarray-pack');
+var pool = require('ndarray-scratch');
+var gemm = require('ndarray-gemm');
 
 function initializeModel (x, alpha, mu, cov) {
-  var j, k;
+  var i, j, k;
   var N = x.shape[0];
   var M = x.shape[1];
   var K = mu.shape[0];
 
   console.groupCollapsed('Initial Conditions');
 
-  // Equal probability a randomly selected sample is from a given mixture component:
-  ops.assigns(alpha, 1 / K);
+  var unpacked = unpack(x);
+  var km = kmpp(unpacked, {k: K});
 
   for (k = 0; k < K; k++) {
-    ops.assign(mu.pick(k), x.pick(k));
+    ops.assign(mu.pick(k), ndarray(km.centroids[k]));
   }
-  //console.log('x:\n' + show(x));
   console.log('mu:\n' + show(mu));
+
+  for (k = 0; k < K; k++) {
+    alpha.set(k, km.counts[k] / N);
+  }
   console.log('alpha:\n' + show(alpha));
 
-  // Initialize using population variance in each dim and a random sample for the mean:
+  // Compute sum [(x - mu) * (x - mu)^T]:
   ops.assigns(cov, 0);
-  for (j = 0; j < M; j++) {
-    // Compute stats in this dim:
-    var sig = variance(x.pick(null, j)) / 4;
+  var muk = [];
+  var covk = [];
+  for (k = 0; k < K; k++) {
+    muk[k] = ndarray(km.centroids[k]);
+    covk[k] = cov.pick(k);
+  }
 
-    // For each mixture component:
-    for (k = 0; k < K; k++) {
-      mu.set(k, j, x.get(k, j));
-      cov.set(k, j, j, sig);
-    }
+  var xmuk = pool.zeros([M, 1]);
+  var xmukT = xmuk.transpose(1, 0);
+  var xmukV = xmukV = xmukT.pick(0);
+
+  for (i = 0; i < N; i++) {
+    var k = km.assignments[i];
+    ops.sub(xmukV, x.pick(i), muk[k]);
+    gemm(covk[k], xmuk, xmukT, 1 / Math.max(1, km.counts[k] - 1), 1);
   }
 
   console.log('cov:\n' + show(cov));

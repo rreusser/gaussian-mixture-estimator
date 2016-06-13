@@ -4,6 +4,8 @@
 
 Fits an n-dimensional Gaussian Mixture to data using the Expectation Maximization (EM) algorithm. The algorithm is guaranteed to improve on every iteration, but it's not guaranteed to converge to a global maximum. The implementation currently uses a pretty naive initial guess. I may integrate k-nearest neighbors initilization, or may leave that to the user. I haven't decided yet. The demo uses k-nearest neighbor initialization, but the particular module is a bit unstable sometimes, so at the moment, I'm leaning toward excluding anything but rudimentary built-in initialization.
 
+![Gaussian mixture in 2D](images/gaussian-mixture.svg)
+
 Demo at: http://rickyreusser.com/gaussian-mixture-estimator/
 
 ## Example
