@@ -6,7 +6,7 @@ Fits an n-dimensional Gaussian Mixture to data using the Expectation Maximizatio
 
 ![Gaussian mixture in 2D](images/gaussian-mixture.svg)
 
-Demo at: http://rickyreusser.com/gaussian-mixture-estimator/
+Demo at: https://rreusser.github.io/gaussian-mixture-estimator/
 
 ## Example
 
